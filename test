@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="target" style="border: solid 5px #ccc; padding:2em; text-align:center;">
+        ここに画像ファイルをドロップします。
+    </div>
+    
+    <img id="preview">
+    <script>
+        var target = document.getElementById('target');       
+    target.addEventListener('dragover', function (e) {
+	e.preventDefault();
+	e.stopPropagation();
+	e.dataTransfer.dropEffect = 'copy';
+});
+target.addEventListener('drop', function (e) {
+	e.stopPropagation();
+	e.preventDefault();
+	const reader = new FileReader();
+	reader.onload = function (e) {
+		document.getElementById('preview').src = e.target.result;
+	}
+	reader.readAsDataURL(e.dataTransfer.files[0]);
+});
+    </script>
+    
+</body>
+</html>
